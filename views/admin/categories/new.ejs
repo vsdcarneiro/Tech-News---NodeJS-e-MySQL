@@ -1,0 +1,25 @@
+<%- include('../../partials/header.ejs') %> <%-
+include('../../partials/navbar.ejs') %>
+
+<div class="container">
+  <div class="card" id="category-form">
+    <div class="card-header">
+      <h2>Nova categoria</h2>
+    </div>
+    <div class="card-body">
+      <form action="/categories/save" method="post">
+        <input
+          type="text"
+          class="form-control"
+          name="category"
+          placeholder="Digite a categoria aqui"
+        />
+        <br />
+        <button class="btn btn-success">Cadastrar</button>
+        <a href="/"><button class="btn btn-outline-danger">Cancelar</button></a>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
