@@ -1,0 +1,59 @@
+<%- include('../../partials/header.ejs') %> <%-
+include('../../partials/navbar.ejs') %>
+<div class="container">
+  <div class="card" id="category-form">
+    <div class="card-header">
+      <h2>Nova notícia</h2>
+    </div>
+    <div class="card-body">
+      <form action="/news/create" method="post">
+        <input
+          type="text"
+          class="form-control"
+          name="title"
+          placeholder="Digite o título da notícia aqui"
+          required
+        /><br />
+        <textarea
+          name="description"
+          id="news"
+          class="form-control"
+          placeholder="Digite a notícia aqui"
+        ></textarea
+        ><br />
+        <select name="category" class="form-select" required>
+          <option selected disabled>Selecione uma categoria</option>
+          <% categories.forEach(category => { %>
+          <option value="<%= category.id %>"><%= category.category%></option>
+          <% }) %></select
+        ><br />
+        <button type="submit" class="btn btn-outline-success">Cadastrar</button>
+        <a href="/admin/news" class="btn btn-outline-danger">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('../../partials/footer.ejs') %>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+  tinymce.init({
+    language: "pt_BR",
+    selector: "#news",
+    plugins: [
+      "advlist",
+      "autolink",
+      "link",
+      "image",
+      "lists",
+      "preview",
+      "searchreplace",
+      "wordcount",
+      "fullscreen",
+      "insertdatetime",
+      "media",
+      "save",
+      "table",
+      "emoticons",
+    ],
+  });
+</script>
