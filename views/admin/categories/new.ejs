@@ -6,7 +6,7 @@ include('../../partials/navbar.ejs') %>
       <h2>Nova categoria</h2>
     </div>
     <div class="card-body">
-      <form action="/admin/categories/create" method="post">
+      <form action="/categories/create" method="post">
         <input
           type="text"
           class="form-control"
@@ -15,7 +15,7 @@ include('../../partials/navbar.ejs') %>
           required
         />
         <br />
-        <button type="submit" class="btn btn-success">Cadastrar</button>
+        <button type="submit" class="btn btn-outline-success">Cadastrar</button>
         <a href="/admin/categories" class="btn btn-outline-danger">Cancelar</a>
       </form>
     </div>

@@ -6,7 +6,7 @@ include('../../partials/navbar.ejs') %>
       <h2>Editar categoria</h2>
     </div>
     <div class="card-body">
-      <form action="/admin/categories/update" method="post">
+      <form action="/categories/update" method="post">
         <input
           type="text"
           class="form-control"
@@ -15,7 +15,7 @@ include('../../partials/navbar.ejs') %>
         />
         <br />
         <input type="hidden" name="id" value="<%= category.id %>">
-        <button type="submit" class="btn btn-success">Salvar</button>
+        <button type="submit" class="btn btn-outline-success">Salvar</button>
         <a href="/admin/categories" class="btn btn-outline-danger">Cancelar</button></a>
       </form>
     </div>
