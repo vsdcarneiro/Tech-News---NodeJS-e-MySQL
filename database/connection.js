@@ -2,7 +2,7 @@ import config from "config";
 import { Sequelize } from "sequelize";
 
 const { uri } = config.get("mysql");
-const sequelize = new Sequelize(uri);
+const sequelize = new Sequelize(uri, { timezone: "-03:00" });
 
 async function mysqlConnection() {
   try {
