@@ -1,0 +1,63 @@
+<%- include('../../partials/header.ejs') %> <%-
+include('../../partials/navbar.ejs') %>
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col-sm-8"><h2>Categorias</h2></div>
+    <div class="col-sm-4 text-end">
+      <a href="/admin/categories/new" class="btn btn-outline-primary"
+        >Nova categoria</a
+      >
+    </div>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th style="text-align: center">ID</th>
+        <th style="text-align: center">Categoria</th>
+        <th style="text-align: center">Slug</th>
+        <th style="text-align: center">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categories.forEach(category => { %>
+      <tr>
+        <th style="text-align: center"><%= category.id %></th>
+        <th style="text-align: center"><%= category.category %></th>
+        <th style="text-align: center"><%= category.slug %></th>
+        <th>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <a
+              href="/admin/categories/edit/<%= category.id %>"
+              class="btn btn-outline-warning"
+              >Editar</a
+            >
+            <form
+              action="/admin/categories/delete"
+              method="post"
+              style="display: inline"
+              onsubmit="confirmDeletion(event, this)"
+            >
+              <input type="hidden" name="id" value="<%= category.id %>" />
+              <button type="submit" class="btn btn-outline-danger">
+                Deletar
+              </button>
+            </form>
+          </div>
+        </th>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../../partials/footer.ejs') %>
+<script>
+  function confirmDeletion(event, form) {
+    event.preventDefault();
+    const option = confirm("Você deseja deletar esta categoria?");
+
+    if (option) {
+      form.submit();
+    }
+  }
+</script>

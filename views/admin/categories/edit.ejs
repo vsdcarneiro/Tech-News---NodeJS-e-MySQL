@@ -3,20 +3,20 @@ include('../../partials/navbar.ejs') %>
 <div class="container">
   <div class="card" id="category-form">
     <div class="card-header">
-      <h2>Nova categoria</h2>
+      <h2>Editar categoria</h2>
     </div>
     <div class="card-body">
-      <form action="/admin/categories/create" method="post">
+      <form action="/admin/categories/update" method="post">
         <input
           type="text"
           class="form-control"
           name="category"
-          placeholder="Digite a categoria aqui"
-          required
+          value="<%= category.category %>"
         />
         <br />
-        <button type="submit" class="btn btn-success">Cadastrar</button>
-        <a href="/admin/categories" class="btn btn-outline-danger">Cancelar</a>
+        <input type="hidden" name="id" value="<%= category.id %>">
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="/admin/categories" class="btn btn-outline-danger">Cancelar</button></a>
       </form>
     </div>
   </div>
