@@ -3,6 +3,7 @@ import newsController from "../controllers/news.js";
 
 const router = Router();
 
-router.get("/news", newsController.news);
+router.get("/admin/news/new", newsController.newNews);
+router.post("/news/create", newsController.createNews);
 
 export default router;
