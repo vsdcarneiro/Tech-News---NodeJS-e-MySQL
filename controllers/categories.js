@@ -31,7 +31,7 @@ const categoriesController = {
       if (result) {
         res.render("admin/categories/index", { categories: result });
       } else {
-        res.redirect("admin/categories");
+        res.redirect("/admin/categories");
       }
     } catch (error) {
       res.status(500).send("Internal Server Error");
