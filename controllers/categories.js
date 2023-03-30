@@ -1,8 +1,12 @@
-import operations from "../database/categories/queries.js";
+import operationsCategory from "../database/categories/queries.js";
 
 const categoriesController = {
   newCategory: async (req, res) => {
-    res.render("admin/categories/new");
+    try {
+      res.render("admin/categories/new");
+    } catch (error) {
+      res.status(500).send("Internal Server Error");
+    }
   },
 
   createCategory: async (req, res) => {
@@ -10,7 +14,7 @@ const categoriesController = {
       const { category } = req.body;
 
       if (category) {
-        await operations.createCategory(category);
+        await operationsCategory.createCategory(category);
         res.redirect("/admin/categories");
       } else {
         res.redirect("/admin/categories/new");
@@ -22,7 +26,7 @@ const categoriesController = {
 
   getCategories: async (req, res) => {
     try {
-      const result = await operations.getCategories();
+      const result = await operationsCategory.getCategories();
 
       if (result) {
         res.render("admin/categories/index", { categories: result });
@@ -38,7 +42,7 @@ const categoriesController = {
     try {
       if (!isNaN(req.params.id)) {
         const id = parseInt(req.params.id);
-        const result = await operations.getCategoryById(id);
+        const result = await operationsCategory.getCategoryById(id);
 
         if (result) {
           res.render("admin/categories/edit", { category: result });
@@ -55,10 +59,11 @@ const categoriesController = {
 
   updateCategory: async (req, res) => {
     try {
-      const [id, category] = [parseInt(req.body.id), req.body.category];
+      const id = parseInt(req.body.id);
+      const { category } = req.body;
 
       if (category) {
-        await operations.updateCategory(id, category);
+        await operationsCategory.updateCategory(id, category);
         res.redirect("/admin/categories");
       } else {
         res.render("admin/categories/edit", {
@@ -73,7 +78,8 @@ const categoriesController = {
   deleteCategory: async (req, res) => {
     try {
       const id = parseInt(req.body.id);
-      await operations.deleteCategory(id);
+      
+      await operationsCategory.deleteCategory(id);
       res.redirect("/admin/categories");
     } catch (error) {
       res.status(500).send("Internal Server Error");

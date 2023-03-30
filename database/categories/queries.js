@@ -1,7 +1,7 @@
 import slugify from "slugify";
 import Category from "../../models/Category.js";
 
-const operations = {
+const operationsCategory = {
   createCategory: async (category) => {
     try {
       const result = await Category.create({
@@ -64,4 +64,4 @@ const operations = {
   },
 };
 
-export default operations;
+export default operationsCategory;
