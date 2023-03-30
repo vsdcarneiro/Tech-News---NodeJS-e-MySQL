@@ -36,12 +36,9 @@ const categoriesController = {
 
   editCategory: async (req, res) => {
     try {
-      let id;
-      let result;
-
       if (!isNaN(req.params.id)) {
-        id = parseInt(req.params.id);
-        result = await operations.getCategoryById(id);
+        const id = parseInt(req.params.id);
+        const result = await operations.getCategoryById(id);
 
         if (result) {
           res.render("admin/categories/edit", { category: result });
