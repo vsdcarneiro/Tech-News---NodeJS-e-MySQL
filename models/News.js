@@ -1,6 +1,6 @@
-import { DataTypes } from 'sequelize'
-import { sequelize } from '../database/connection.js'
-import Category from './Category.js'
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../database/connection.js';
+import Category from './Category.js';
 
 const News = sequelize.define('News', {
   title: {
@@ -15,13 +15,13 @@ const News = sequelize.define('News', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-})
+});
 
 // Cardinality: (1, 1)
-News.belongsTo(Category)
+News.belongsTo(Category);
 
-;(async (model) => {
-  await model.sync({ force: false })
-})(News)
+(async (model) => {
+  await model.sync({ force: false });
+})(News);
 
-export default News
+export default News;

@@ -1,94 +1,94 @@
-import slugify from 'slugify'
-import Category from '../models/Category.js'
+import slugify from 'slugify';
+import Category from '../models/Category.js';
 
 const categoriesController = {
   newCategory: async (req, res) => {
     try {
-      res.render('admin/categories/new')
+      res.render('admin/categories/new');
     } catch (error) {
-      res.status(500).send('Internal Server Error')
+      res.status(500).send('Internal Server Error');
     }
   },
 
   createCategory: async (req, res) => {
     try {
-      const { category } = req.body
+      const { category } = req.body;
 
       if (category) {
         const result = await Category.create({
           category,
           slug: slugify(category),
-        })
+        });
 
         if (result instanceof Category) {
-          return res.redirect('/admin/categories')
+          return res.redirect('/admin/categories');
         }
       }
-      res.redirect('/admin/categories/new')
+      res.redirect('/admin/categories/new');
     } catch (error) {
-      res.status(500).send('Internal Server Error')
+      res.status(500).send('Internal Server Error');
     }
   },
 
   getCategories: async (req, res) => {
     try {
-      const result = await Category.findAll()
+      const result = await Category.findAll();
 
       if (result.every((category) => category instanceof Category)) {
-        res.render('admin/categories/index', { categories: result })
+        res.render('admin/categories/index', { categories: result });
       } else {
-        res.redirect('/admin/categories')
+        res.redirect('/admin/categories');
       }
     } catch (error) {
-      res.status(500).send('Internal Server Error')
+      res.status(500).send('Internal Server Error');
     }
   },
 
   editCategory: async (req, res) => {
     try {
       if (!isNaN(req.params.id)) {
-        const id = parseInt(req.params.id)
-        const result = await Category.findByPk(id)
+        const id = parseInt(req.params.id);
+        const result = await Category.findByPk(id);
 
         if (result instanceof Category) {
-          return res.render('admin/categories/edit', { category: result })
+          return res.render('admin/categories/edit', { category: result });
         }
       }
-      res.redirect('/admin/categories')
+      res.redirect('/admin/categories');
     } catch (error) {
-      res.status(500).send('Internal Server Error')
+      res.status(500).send('Internal Server Error');
     }
   },
 
   updateCategory: async (req, res) => {
     try {
       if (!isNaN(req.body.id) && req.body.category) {
-        const id = parseInt(req.body.id)
-        const { category } = req.body
+        const id = parseInt(req.body.id);
+        const { category } = req.body;
 
         await Category.update(
           { category, slug: slugify(category) },
           { where: { id } },
-        )
+        );
       }
-      res.redirect('/admin/categories')
+      res.redirect('/admin/categories');
     } catch (error) {
-      res.status(500).send('Internal Server Error')
+      res.status(500).send('Internal Server Error');
     }
   },
 
   deleteCategory: async (req, res) => {
     try {
       if (!isNaN(req.body.id)) {
-        const id = parseInt(req.body.id)
+        const id = parseInt(req.body.id);
 
-        await Category.destroy({ where: { id } })
+        await Category.destroy({ where: { id } });
       }
-      res.redirect('/admin/categories')
+      res.redirect('/admin/categories');
     } catch (error) {
-      res.status(500).send('Internal Server Error')
+      res.status(500).send('Internal Server Error');
     }
   },
-}
+};
 
-export default categoriesController
+export default categoriesController;

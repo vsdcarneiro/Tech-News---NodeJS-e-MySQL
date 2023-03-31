@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize'
-import { sequelize } from '../database/connection.js'
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../database/connection.js';
 
 const Category = sequelize.define('Category', {
   category: {
@@ -10,10 +10,10 @@ const Category = sequelize.define('Category', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-})
+});
 
-;(async (model) => {
-  await model.sync({ force: false })
-})(Category)
+(async (model) => {
+  await model.sync({ force: false });
+})(Category);
 
-export default Category
+export default Category;
