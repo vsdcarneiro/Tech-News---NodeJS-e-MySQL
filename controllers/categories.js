@@ -1,4 +1,5 @@
-import operationsCategory from '../database/categories/queries.js'
+import slugify from 'slugify'
+import Category from '../models/Category.js'
 
 const categoriesController = {
   newCategory: async (req, res) => {
@@ -14,11 +15,16 @@ const categoriesController = {
       const { category } = req.body
 
       if (category) {
-        await operationsCategory.createCategory(category)
-        res.redirect('/admin/categories')
-      } else {
-        res.redirect('/admin/categories/new')
+        const result = await Category.create({
+          category,
+          slug: slugify(category),
+        })
+
+        if (result instanceof Category) {
+          return res.redirect('/admin/categories')
+        }
       }
+      res.redirect('/admin/categories/new')
     } catch (error) {
       res.status(500).send('Internal Server Error')
     }
@@ -26,9 +32,9 @@ const categoriesController = {
 
   getCategories: async (req, res) => {
     try {
-      const result = await operationsCategory.getCategories()
+      const result = await Category.findAll()
 
-      if (result) {
+      if (result.every((category) => category instanceof Category)) {
         res.render('admin/categories/index', { categories: result })
       } else {
         res.redirect('/admin/categories')
@@ -42,16 +48,13 @@ const categoriesController = {
     try {
       if (!isNaN(req.params.id)) {
         const id = parseInt(req.params.id)
-        const result = await operationsCategory.getCategoryById(id)
+        const result = await Category.findByPk(id)
 
-        if (result) {
-          res.render('admin/categories/edit', { category: result })
-        } else {
-          res.redirect('/admin/categories')
+        if (result instanceof Category) {
+          return res.render('admin/categories/edit', { category: result })
         }
-      } else {
-        return res.redirect('/admin/categories')
       }
+      res.redirect('/admin/categories')
     } catch (error) {
       res.status(500).send('Internal Server Error')
     }
@@ -59,17 +62,16 @@ const categoriesController = {
 
   updateCategory: async (req, res) => {
     try {
-      const id = parseInt(req.body.id)
-      const { category } = req.body
+      if (!isNaN(req.body.id) && req.body.category) {
+        const id = parseInt(req.body.id)
+        const { category } = req.body
 
-      if (category) {
-        await operationsCategory.updateCategory(id, category)
-        res.redirect('/admin/categories')
-      } else {
-        res.render('admin/categories/edit', {
-          category: { id, category },
-        })
+        await Category.update(
+          { category, slug: slugify(category) },
+          { where: { id } },
+        )
       }
+      res.redirect('/admin/categories')
     } catch (error) {
       res.status(500).send('Internal Server Error')
     }
@@ -77,9 +79,11 @@ const categoriesController = {
 
   deleteCategory: async (req, res) => {
     try {
-      const id = parseInt(req.body.id)
+      if (!isNaN(req.body.id)) {
+        const id = parseInt(req.body.id)
 
-      await operationsCategory.deleteCategory(id)
+        await Category.destroy({ where: { id } })
+      }
       res.redirect('/admin/categories')
     } catch (error) {
       res.status(500).send('Internal Server Error')

@@ -1,13 +1,16 @@
-import operationsCategory from '../database/categories/queries.js'
-import operationsNews from '../database/news/queries.js'
+import slugify from 'slugify'
+import News from '../models/News.js'
+import Category from '../models/Category.js'
 
 const newsController = {
   newNews: async (req, res) => {
     try {
-      const result = await operationsCategory.getCategories()
+      const result = await Category.findAll()
 
-      if (result) {
+      if (result.every((category) => category instanceof Category)) {
         res.render('admin/news/new', { categories: result })
+      } else {
+        res.redirect('/admin/news')
       }
     } catch (error) {
       res.status(500).send('Internal Server Error')
@@ -20,8 +23,19 @@ const newsController = {
       const { description } = req.body
       const categoryId = parseInt(req.body.category)
 
-      await operationsNews.createNews(title, description, categoryId)
-      res.redirect('/admin/news')
+      if (title && description && categoryId) {
+        const result = await News.create({
+          title,
+          slug: slugify(title),
+          description,
+          CategoryId: categoryId,
+        })
+
+        if (result instanceof News) {
+          return res.redirect('/admin/news')
+        }
+      }
+      res.redirect('/admin/news/new')
     } catch (error) {
       res.status(500).send('Internal Server Error')
     }
@@ -29,9 +43,9 @@ const newsController = {
 
   getNews: async (req, res) => {
     try {
-      const result = await operationsNews.getNews()
+      const result = await News.findAll({ include: [{ model: Category }] })
 
-      if (result) {
+      if (result.every((news) => news instanceof News)) {
         res.render('admin/news/index', { news: result })
       } else {
         res.redirect('/admin/news')
@@ -41,21 +55,13 @@ const newsController = {
     }
   },
 
-  editNews: async (req, res) => {
-    try {
-    } catch (error) {}
-  },
-
-  updateNews: async (req, res) => {
-    try {
-    } catch (error) {}
-  },
-
   deleteNews: async (req, res) => {
     try {
-      const id = parseInt(req.body.id)
+      if (!isNaN(req.body.id)) {
+        const id = parseInt(req.body.id)
 
-      await operationsNews.deleteNews(id)
+        await News.destroy({ where: { id } })
+      }
       res.redirect('/admin/news')
     } catch (error) {
       res.status(500).send('Internal Server Error')
