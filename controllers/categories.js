@@ -78,7 +78,7 @@ const categoriesController = {
   deleteCategory: async (req, res) => {
     try {
       const id = parseInt(req.body.id);
-      
+
       await operationsCategory.deleteCategory(id);
       res.redirect("/admin/categories");
     } catch (error) {

@@ -23,9 +23,8 @@ const operationsCategory = {
 
       if (result.every((category) => category instanceof Category)) {
         return result;
-      } else {
-        return undefined;
       }
+      return undefined;
     } catch (error) {
       throw error;
     }
