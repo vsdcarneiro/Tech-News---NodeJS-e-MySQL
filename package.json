@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier-fix": "prettier --write ."
   },
   "keywords": [],
   "author": "Vinícius Carneiro",
@@ -17,5 +18,8 @@
     "mysql2": "^3.2.0",
     "sequelize": "^6.30.0",
     "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "prettier": "2.8.7"
   }
 }
