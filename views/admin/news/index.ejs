@@ -10,15 +10,46 @@ include('../../partials/navbar.ejs') %>
       >
     </div>
   </div>
-  <table class="table table-bordered">
-    <thead>
+  <table class="table table-bordered table-sm text-center">
+    <thead class="table-ligth">
       <tr>
-        <th style="text-align: center">ID</th>
-        <th style="text-align: center">Categoria</th>
-        <th style="text-align: center">Slug</th>
-        <th style="text-align: center">Ações</th>
+        <th scope="col">ID</th>
+        <th scope="col">Notícia</th>
+        <th scope="col">Slug</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Ações</th>
       </tr>
     </thead>
+    <tbody>
+      <% news.forEach(news => { %>
+      <tr>
+        <th scope="row"><%= news.id %></th>
+        <td><%= news.title %></td>
+        <td><%= news.slug %></td>
+        <td><%= news.Category.category %></td>
+        <td>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <a
+              href="/admin/news/edit/<%= news.id %>"
+              class="btn btn-outline-warning"
+              >Editar</a
+            >
+            <form
+              action="/news/delete"
+              method="post"
+              style="display: inline"
+              onsubmit="confirmDeletion(event, this)"
+            >
+              <input type="hidden" name="id" value="<%= news.id %>" />
+              <button type="submit" class="btn btn-outline-danger">
+                Deletar
+              </button>
+            </form>
+          </div>
+        </th>
+      </tr>
+      <% }) %>
+    </tbody>
   </table>
 </div>
 <%- include('../../partials/footer.ejs') %>

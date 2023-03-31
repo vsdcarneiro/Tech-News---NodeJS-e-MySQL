@@ -10,22 +10,22 @@ include('../../partials/navbar.ejs') %>
       >
     </div>
   </div>
-  <table class="table table-bordered">
+  <table class="table table-bordered table-sm text-center">
     <thead>
       <tr>
-        <th style="text-align: center">ID</th>
-        <th style="text-align: center">Categoria</th>
-        <th style="text-align: center">Slug</th>
-        <th style="text-align: center">Ações</th>
+        <th scope="col">ID</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Slug</th>
+        <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody>
       <% categories.forEach(category => { %>
       <tr>
-        <th style="text-align: center"><%= category.id %></th>
-        <th style="text-align: center"><%= category.category %></th>
-        <th style="text-align: center"><%= category.slug %></th>
-        <th>
+        <th scope="row"><%= category.id %></th>
+        <td><%= category.category %></td>
+        <td><%= category.slug %></td>
+        <td>
           <div class="d-grid gap-2 d-md-flex justify-content-md-center">
             <a
               href="/admin/categories/edit/<%= category.id %>"
@@ -33,7 +33,7 @@ include('../../partials/navbar.ejs') %>
               >Editar</a
             >
             <form
-              action="/admin/categories/delete"
+              action="/categories/delete"
               method="post"
               style="display: inline"
               onsubmit="confirmDeletion(event, this)"
@@ -44,7 +44,7 @@ include('../../partials/navbar.ejs') %>
               </button>
             </form>
           </div>
-        </th>
+        </td>
       </tr>
       <% }) %>
     </tbody>
