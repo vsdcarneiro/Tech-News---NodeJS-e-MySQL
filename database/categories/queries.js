@@ -1,5 +1,5 @@
-import slugify from "slugify";
-import Category from "../../models/Category.js";
+import slugify from 'slugify'
+import Category from '../../models/Category.js'
 
 const operationsCategory = {
   createCategory: async (category) => {
@@ -7,39 +7,39 @@ const operationsCategory = {
       const result = await Category.create({
         category,
         slug: slugify(category),
-      });
+      })
 
       if (result instanceof Category) {
-        return true;
+        return true
       }
     } catch (error) {
-      throw error;
+      throw error
     }
   },
 
   getCategories: async () => {
     try {
-      const result = await Category.findAll();
+      const result = await Category.findAll()
 
       if (result.every((category) => category instanceof Category)) {
-        return result;
+        return result
       }
-      return undefined;
+      return undefined
     } catch (error) {
-      throw error;
+      throw error
     }
   },
 
   getCategoryById: async (id) => {
     try {
-      const result = await Category.findByPk(id);
+      const result = await Category.findByPk(id)
 
       if (result instanceof Category) {
-        return result;
+        return result
       }
-      return undefined;
+      return undefined
     } catch (error) {
-      throw error;
+      throw error
     }
   },
 
@@ -47,20 +47,20 @@ const operationsCategory = {
     try {
       await Category.update(
         { category, slug: slugify(category) },
-        { where: { id } }
-      );
+        { where: { id } },
+      )
     } catch (error) {
-      throw error;
+      throw error
     }
   },
 
   deleteCategory: async (id) => {
     try {
-      await Category.destroy({ where: { id } });
+      await Category.destroy({ where: { id } })
     } catch (error) {
-      throw error;
+      throw error
     }
   },
-};
+}
 
-export default operationsCategory;
+export default operationsCategory
