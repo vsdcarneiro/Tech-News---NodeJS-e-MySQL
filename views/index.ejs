@@ -1,5 +1,35 @@
-<%- include('partials/header.ejs') %>
+<%- include('./partials/header.ejs') %> <%-
+include('./partials/home-navbar.ejs') %>
 <body>
-    <h1>Welcome to the Tech News</h1>
+  <div class="container">
+    <div class="container">
+      <div class="container-fluid bg-secondary bg-gradient text-light p-4">
+        <div class="container bg-secondary bg-gradient p-4">
+          <h1 class="display-4">Seja bem-vindo a Tech News</h1>
+          <p class="lead">
+            Conteúdos, Notícias e Tudo sobre Tecnologia da Informação.
+          </p>
+          <hr class="my-4" />
+          <p>
+            It uses utility classes for typography and spacing to space content
+            out within the larger container.
+          </p>
+          <p class="lead">
+            <a class="btn btn-primary" href="#" role="button">Learn more</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <br />
+    <% news.forEach(news => { %>
+    <div class="card">
+      <div class="card-header"><h2><%= news.title %></h2></div>
+      <div class="card-body">
+        <a href="#" class="btn btn-outline-success">Ler notícia</a>
+      </div>
+    </div>
+    <br />
+    <% }) %>
+  </div>
 </body>
-<%- include('partials/footer.ejs') %>
+<%- include('./partials/footer.ejs') %>
