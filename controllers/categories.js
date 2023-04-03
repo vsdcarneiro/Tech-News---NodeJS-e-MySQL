@@ -32,7 +32,7 @@ const categoriesController = {
 
   getCategories: async (req, res) => {
     try {
-      const result = await Category.findAll();
+      const result = await Category.findAll({ order: [['category', 'ASC']] });
 
       if (result.every((category) => category instanceof Category)) {
         res.render('admin/categories/index', { categories: result });
@@ -46,8 +46,9 @@ const categoriesController = {
 
   editCategory: async (req, res) => {
     try {
-      if (!isNaN(req.params.id)) {
-        const id = parseInt(req.params.id);
+      const id = parseInt(req.params.id);
+
+      if (id) {
         const result = await Category.findByPk(id);
 
         if (result instanceof Category) {
@@ -62,10 +63,10 @@ const categoriesController = {
 
   updateCategory: async (req, res) => {
     try {
-      if (!isNaN(req.body.id) && req.body.category) {
-        const id = parseInt(req.body.id);
-        const { category } = req.body;
+      const id = parseInt(req.body.id);
+      const { category } = req.body;
 
+      if (id && category) {
         await Category.update(
           { category, slug: slugify(category) },
           { where: { id } },
@@ -79,9 +80,9 @@ const categoriesController = {
 
   deleteCategory: async (req, res) => {
     try {
-      if (!isNaN(req.body.id)) {
-        const id = parseInt(req.body.id);
+      const id = parseInt(req.body.id);
 
+      if (id) {
         await Category.destroy({ where: { id } });
       }
       res.redirect('/admin/categories');
