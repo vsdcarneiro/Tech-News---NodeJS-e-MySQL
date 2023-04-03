@@ -8,12 +8,11 @@ include('./partials/home-navbar.ejs') %>
           <h1 class="display-4">Seja bem-vindo a Tech News</h1>
           <p class="lead">Conteúdos, Notícias e Tudo sobre Tecnologia.</p>
           <hr class="my-4" />
-          <p class="fst-italic" style="text-align: justify;">
-            Atualmente a principal novidade do mundo Tech é o ChatGPT. Um modelo
-            de linguagem baseado em inteligência artificial desenvolvido pela
-            OpenAI. Em resumo, você pode fazer diversos questionamentos ou
-            solicitações e a ferramenta responde em uma linguagem amigável,
-            semelhante a que você tem com outro ser humano.
+          <p class="fst-italic" style="text-align: justify">
+            ChatGPT, um modelo de linguagem baseado em inteligência artificial
+            desenvolvido pela OpenAI. Em resumo, você pode fazer diversos
+            questionamentos ou solicitações e a ferramenta responde em uma
+            linguagem amigável, semelhante a que você tem com outro ser humano.
           </p>
           <p class="lead">
             <a
@@ -69,12 +68,24 @@ include('./partials/home-navbar.ejs') %>
       </div>
     </div>
     <br />
-    <% }) %>
+    <% }) %> <% if (!filterCategory && nextPage) { %>
     <div class="row">
       <div class="col col-12">
         <a href="/page/2" style="float: right" class="link-secondary">Mais</a>
       </div>
     </div>
+    <% } else if (filterCategory && nextPage) { %>
+    <div class="row">
+      <div class="col col-12">
+        <a
+          href="/categories/<%= filterCategory %>/page/2"
+          style="float: right"
+          class="link-secondary"
+          >Mais</a
+        >
+      </div>
+    </div>
+    <% } %>
     <br />
   </div>
 </body>

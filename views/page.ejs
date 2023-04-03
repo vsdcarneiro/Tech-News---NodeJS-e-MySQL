@@ -47,13 +47,44 @@ include('./partials/home-navbar.ejs') %>
     <% }) %>
     <div class="row">
       <div class="col col-12">
-        <% if(nextPage) { %>
-        <a href="/page/<%= page + 1 %>" style="float: right" class="link-secondary">Mais</a>
+        <% if(!filterCategory) {%> <% if(nextPage) { %>
+        <a
+          href="/page/<%= page + 1 %>"
+          style="float: right"
+          class="link-secondary"
+          >Mais</a
+        >
         <% } %> <% if(page !== 2) { %>
-        <a href="/page/<%= page - 1 %>" style="float: left" class="link-secondary">Anterior</a>
+        <a
+          href="/page/<%= page - 1 %>"
+          style="float: left"
+          class="link-secondary"
+          >Anterior</a
+        >
         <% } else { %>
         <a href="/" style="float: left" class="link-secondary">Anterior</a>
-        <% } %>
+        <% } %> <% } else { %> <% if(nextPage) { %>
+        <a
+          href="/categories/<%= filterCategory %>/page/<%= page + 1 %>"
+          style="float: right"
+          class="link-secondary"
+          >Mais</a
+        >
+        <% } %> <% if(page !== 2) { %>
+        <a
+          href="/categories/<%= filterCategory %>/page/<%= page - 1 %>"
+          style="float: left"
+          class="link-secondary"
+          >Anterior</a
+        >
+        <% } else { %>
+        <a
+          href="/categories/<%= filterCategory %>"
+          style="float: left"
+          class="link-secondary"
+          >Anterior</a
+        >
+        <% } %> <% } %>
       </div>
     </div>
     <br />
