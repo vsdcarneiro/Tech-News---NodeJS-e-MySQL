@@ -6,16 +6,23 @@ include('./partials/home-navbar.ejs') %>
       <div class="container-fluid bg-secondary bg-gradient text-light p-4">
         <div class="container bg-secondary bg-gradient p-4">
           <h1 class="display-4">Seja bem-vindo a Tech News</h1>
-          <p class="lead">
-            Conteúdos, Notícias e Tudo sobre Tecnologia.
-          </p>
+          <p class="lead">Conteúdos, Notícias e Tudo sobre Tecnologia.</p>
           <hr class="my-4" />
-          <p>
-            It uses utility classes for typography and spacing to space content
-            out within the larger container.
+          <p class="fst-italic" style="text-align: justify;">
+            Atualmente a principal novidade do mundo Tech é o ChatGPT. Um modelo
+            de linguagem baseado em inteligência artificial desenvolvido pela
+            OpenAI. Em resumo, você pode fazer diversos questionamentos ou
+            solicitações e a ferramenta responde em uma linguagem amigável,
+            semelhante a que você tem com outro ser humano.
           </p>
           <p class="lead">
-            <a class="btn btn-primary" href="#" role="button">Learn more</a>
+            <a
+              class="btn btn-primary"
+              href="https://chat.openai.com/"
+              role="button"
+              target="_blank"
+              >Experimente o ChatGPT</a
+            >
           </p>
         </div>
       </div>
@@ -23,13 +30,52 @@ include('./partials/home-navbar.ejs') %>
     <br />
     <% news.forEach(news => { %>
     <div class="card">
-      <div class="card-header"><h2><%= news.title %></h2></div>
-      <div class="card-body">
-        <a href="#" class="btn btn-outline-success">Ler notícia</a>
+      <div class="card-header"><h4><%= news.title %></h4></div>
+      <div class="row g-0">
+        <div class="col-md-3">
+          <img
+            src="https://dazacultural.com.br/wp-content/uploads/2021/01/tec-4.jpg"
+            class="img-fluid rounded-start"
+            alt="..."
+            style="
+              width: 400px;
+              height: 200px;
+              padding: 10px;
+              border-radius: 50px 25px;
+            "
+          />
+        </div>
+        <div class="col-md-7">
+          <div class="card-body">
+            <p
+              class="card-text"
+              style="
+                white-space: nowrap;
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              "
+            >
+              With supporting text below as a natural lead-in to additional
+              content With supporting text below as a natural lead-in to
+              additional content With supporting text below as a natural lead-in
+              to additional content.
+            </p>
+            <a href="/<%= news.slug %>" class="btn btn-outline-success"
+              >Ler notícia</a
+            >
+          </div>
+        </div>
       </div>
     </div>
     <br />
     <% }) %>
+    <div class="row">
+      <div class="col col-12">
+        <a href="/page/2" style="float: right" class="link-secondary">Mais</a>
+      </div>
+    </div>
+    <br />
   </div>
 </body>
 <%- include('./partials/footer.ejs') %>
