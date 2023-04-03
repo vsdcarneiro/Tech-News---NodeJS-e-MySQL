@@ -1,0 +1,62 @@
+<%- include('./partials/header.ejs') %> <%-
+include('./partials/home-navbar.ejs') %>
+<body>
+  <div class="container">
+    <br />
+    <% news.forEach(news => { %>
+    <div class="card">
+      <div class="card-header"><h4><%= news.title %></h4></div>
+      <div class="row g-0">
+        <div class="col-md-3">
+          <img
+            src="https://dazacultural.com.br/wp-content/uploads/2021/01/tec-4.jpg"
+            class="img-fluid rounded-start"
+            alt="..."
+            style="
+              width: 400px;
+              height: 200px;
+              padding: 10px;
+              border-radius: 50px 25px;
+            "
+          />
+        </div>
+        <div class="col-md-7">
+          <div class="card-body">
+            <p
+              class="card-text"
+              style="
+                white-space: nowrap;
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              "
+            >
+              With supporting text below as a natural lead-in to additional
+              content With supporting text below as a natural lead-in to
+              additional content With supporting text below as a natural lead-in
+              to additional content.
+            </p>
+            <a href="/<%= news.slug %>" class="btn btn-outline-success"
+              >Ler notícia</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <% }) %>
+    <div class="row">
+      <div class="col col-12">
+        <% if(nextPage) { %>
+        <a href="/page/<%= page + 1 %>" style="float: right" class="link-secondary">Mais</a>
+        <% } %> <% if(page !== 2) { %>
+        <a href="/page/<%= page - 1 %>" style="float: left" class="link-secondary">Anterior</a>
+        <% } else { %>
+        <a href="/" style="float: left" class="link-secondary">Anterior</a>
+        <% } %>
+      </div>
+    </div>
+    <br />
+  </div>
+</body>
+<%- include('./partials/footer.ejs') %>
