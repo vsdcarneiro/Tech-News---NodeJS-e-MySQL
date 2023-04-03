@@ -1,14 +1,11 @@
 import { Router } from 'express';
-import News from '../models/News.js';
+import indexController from '../controllers/index.js';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-  const result = await News.findAll();
-
-  if (result.every((news) => news instanceof News)) {
-    res.render('index', { news: result });
-  }
-});
+router.get('/', indexController.getNews);
+router.get('/:slug', indexController.getNewsBySlug);
+router.get('/categories/:slug', indexController.getNewsByCategory);
+router.get('/page/:num', indexController.getNewsByPage);
 
 export default router;
