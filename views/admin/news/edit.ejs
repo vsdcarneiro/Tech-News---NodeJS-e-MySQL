@@ -1,0 +1,60 @@
+<%- include('../../partials/header.ejs') %> <%-
+include('../../partials/navbar.ejs') %>
+<div class="container">
+  <div class="card" id="category-form">
+    <div class="card-header">
+      <h2>Editar notícia</h2>
+    </div>
+    <div class="card-body">
+      <form action="/news/update" method="post">
+        <input
+          type="text"
+          class="form-control"
+          name="title"
+          value="<%= news.title %>"
+          required
+        /><br />
+        <textarea name="description" id="news" class="form-control">
+<%- news.description %></textarea
+        ><br />
+        <select name="category" class="form-select" required>
+          <% categories.forEach(category => { %> <% if(category.category ===
+          news.Category.category) { %>
+          <option value="<%= category.id %>" selected>
+            <%= category.category%>
+          </option>
+          <% } else { %>
+          <option value="<%= category.id %>"><%= category.category%></option>
+          <% } %> <% }) %></select
+        ><br />
+        <input type="hidden" name="id" value="<%= news.id %>">
+        <button type="submit" class="btn btn-outline-success">Salvar</button>
+        <a href="/admin/news" class="btn btn-outline-danger">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('../../partials/footer.ejs') %>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+  tinymce.init({
+    language: 'pt_BR',
+    selector: '#news',
+    plugins: [
+      'advlist',
+      'autolink',
+      'link',
+      'image',
+      'lists',
+      'preview',
+      'searchreplace',
+      'wordcount',
+      'fullscreen',
+      'insertdatetime',
+      'media',
+      'save',
+      'table',
+      'emoticons',
+    ],
+  });
+</script>
