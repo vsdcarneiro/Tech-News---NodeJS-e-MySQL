@@ -35,10 +35,9 @@ const categoriesController = {
       const result = await Category.findAll({ order: [['category', 'ASC']] });
 
       if (result.every((category) => category instanceof Category)) {
-        res.render('admin/categories/index', { categories: result });
-      } else {
-        res.redirect('/admin/categories');
+        return res.render('admin/categories/index', { categories: result });
       }
+      res.redirect('/admin/categories');
     } catch (error) {
       res.status(500).send('Internal Server Error');
     }

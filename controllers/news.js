@@ -8,10 +8,9 @@ const newsController = {
       const result = await Category.findAll();
 
       if (result.every((category) => category instanceof Category)) {
-        res.render('admin/news/new', { categories: result });
-      } else {
-        res.redirect('/admin/news');
+        return res.render('admin/news/new', { categories: result });
       }
+      res.redirect('/admin/news');
     } catch (error) {
       res.status(500).send('Internal Server Error');
     }
@@ -49,10 +48,9 @@ const newsController = {
       });
 
       if (result.every((news) => news instanceof News)) {
-        res.render('admin/news/index', { news: result });
-      } else {
-        res.redirect('/admin/news');
+        return res.render('admin/news/index', { news: result });
       }
+      res.redirect('/admin/news');
     } catch (error) {
       res.status(500).send('Internal Server Error');
     }
