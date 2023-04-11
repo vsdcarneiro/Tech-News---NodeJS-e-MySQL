@@ -25,7 +25,7 @@ import users from './routes/users.js';
         secret: 'technews',
         resave: false,
         saveUninitialized: true,
-        cookie: { maxAge: 30000 },
+        cookie: { maxAge: 3600000 },
       }),
     );
 
